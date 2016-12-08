@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+.container{
+  position: relative;
+  width: 490px;
+  height: 170px;
+  margin:0 auto ;
+  border: 7px solid #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+  .img-box{
+    position: relative;
+  }
+    .img-list{
+      position: absolute;
+      list-style-type:none;
+      margin-top: 0px;
+      padding-left: 0px;
+      top:0px;
+    }
+    .img-list li{
+      height: 170px;
+      width: 490px;
+    }
+      .img-item{
+        width: 490px;
+        height: 170px;
+      }
+  .number-list{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding-left: 0px;
+    margin: 5px;
+    text-align: center;
+  }
+    .number-item{
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    width: 22px;
+    margin-left: 6px;
+    border-radius: 50%;
+    background-color: rgba(29,169,255,0.5);
+    font: 600 14px/1.5 San Francisco,Helvetica Neue,Roboto,arial,sans-serif;
+    cursor: pointer;
+    }
+      .index,.number-item:hover{
+        background-color: rgba(29,169,255,1);
+      }
