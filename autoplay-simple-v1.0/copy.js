@@ -42,6 +42,7 @@ window.onload = function () {
     bOrder ? index++ : index--;
     index <= 0 && (index = 0, bOrder = true);
     index >= aBtn.length - 1 && (index = aBtn.length - 1, bOrder = false);
+    cutover();
   }
   // 页面加载完成之后，自动开始确定下一个index，进而启动轮播
   playTimer = setInterval(next, 3000);

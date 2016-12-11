@@ -9,7 +9,8 @@ $(() => {
   let autoTimer;
   let forward = true;
   let index = 1;
-  let eventTimer = 1;
+  let eventTimer = null;
+  let moveTimer = null;
 
   //这说明innerHTML属性是个字符串
   // 知识点：通过字符串添加子节点的方法
@@ -24,10 +25,25 @@ $(() => {
   const autoPlay = function () {
     for(let i = 0 ; i <= numItem.length-1 ; i++) numItem[i].className = "number-item J_numItem";
     numItem[index-1].className = "number-item J_numItem index";
-    imgList.animate({
-      top: `-${(index - 1) * 170}px`,
-    }, 500);
+    startMove(-(index - 1) * 170);
+
   };
+  const startMove = function(iTarget){
+    clearInterval(moveTimer);
+    moveTimer = setInterval(function () {
+      let iSpeed = (iTarget - imgList.offset().top) / 10;
+      iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+      if(imgList.offset().top === iTarget ) clearInterval(moveTimer);
+      else{
+      imgList.offset((index,c) =>{
+        newPos = new Object();
+        newPos.left=c.left;
+        newPos.top=c.top+iSpeed;
+        return newPos;
+      });
+      }
+    }, 30);
+  }
 
   // 仅用于确定新的index，每次确定之后，去执行autoPlay函数
   const nextItem = function () {
@@ -65,7 +81,7 @@ $(() => {
       index = event.target.innerHTML;
       console.log(`第${index}张`);
       autoPlay();
-    }, 200);
+    }, 50);
   });
 
   // 知识点：修改节点样式＋类名；获取事件的目标对象；jQuery动画效果
