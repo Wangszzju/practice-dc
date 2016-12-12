@@ -23,24 +23,25 @@ $(() => {
 
   // autoPlay仅仅应该用于移动，使用jQuery动画进行位移
   const autoPlay = function () {
-    for(let i = 0 ; i <= numItem.length-1 ; i++) numItem[i].className = "number-item J_numItem";
-    numItem[index-1].className = "number-item J_numItem index";
+    for (let i = 0; i <= numItem.length - 1; i++) numItem[i].className = "number-item J_numItem";
+    numItem[index - 1].className = "number-item J_numItem index";
     startMove(-(index - 1) * 170);
 
   };
-  const startMove = function(iTarget){
+  const startMove = function (iTarget) {
     clearInterval(moveTimer);
     moveTimer = setInterval(function () {
-      let iSpeed = (iTarget - imgList.offset().top) / 10;
+      let iSpeed = (iTarget - (imgList.offset().top - 7)) / 10;
       iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
-      if(imgList.offset().top === iTarget ) clearInterval(moveTimer);
-      else{
-      imgList.offset((index,c) =>{
-        newPos = new Object();
-        newPos.left=c.left;
-        newPos.top=c.top+iSpeed;
-        return newPos;
-      });
+      if (imgList.offset().top - 7 === iTarget) clearInterval(moveTimer);
+      else {
+        //这段代码真的挺丑
+        imgList.offset((index, c) => {
+          newPos = new Object();
+          newPos.left = c.left;
+          newPos.top = c.top + iSpeed;
+          return newPos;
+        });
       }
     }, 30);
   }
@@ -48,14 +49,8 @@ $(() => {
   // 仅用于确定新的index，每次确定之后，去执行autoPlay函数
   const nextItem = function () {
     index = forward ? (index + 1) : (index - 1);
-    if (index >= imgMap.length) {
-      index = imgMap.length;
-      forward = false;
-    }
-    else if (index <= 1) {
-      index = 1;
-      forward = true;
-    }
+    (index >= imgMap.length) && (index = imgMap.length, forward = false);
+    (index <= 1) && (index = 1, forward = true);
     autoPlay();
   }
 
@@ -74,14 +69,13 @@ $(() => {
 
   // 鼠标移入数字区，调整到相应位置，这个事件要比上一个先执行，说明事件是冒泡阶段执行
   // 事件代理
-  // 如果在200毫秒内，有新的事件，取消
   numList.on('mouseover', '.J_numItem', (event) => {
     clearTimeout(eventTimer);
     eventTimer = setTimeout(function () {
       index = event.target.innerHTML;
       console.log(`第${index}张`);
       autoPlay();
-    }, 50);
+    }, 200);
   });
 
   // 知识点：修改节点样式＋类名；获取事件的目标对象；jQuery动画效果
