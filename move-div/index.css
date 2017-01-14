@@ -1,0 +1,14 @@
+.body{
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.target{
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 100px;
+  height: 100px;
+  background-color: #0ff;
+}

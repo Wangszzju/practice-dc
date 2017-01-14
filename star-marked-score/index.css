@@ -1,0 +1,71 @@
+.body{
+  padding: 0;
+  margin: 0;
+}
+
+.container{
+  position: relative;
+  margin: 20px auto;
+  width: 800px;
+  height: 20px;
+
+  color: #666;
+  font: normal 12px/1.5 Arial;
+}
+
+  .reminder,.starlist,.selected{
+    display: inline-block;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: bottom;
+  }
+  .starlist{
+    margin: 0 20px;
+    font-size: 0;
+    -webkit-padding-start: 0px;
+  }
+    .on{
+      background-position: 0 -28px;
+    }
+    .star{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      padding: 0 2px;
+      background-image: url('./img/star.png');
+      background-repeat: no-repeat;
+      list-style-type: none;
+      cursor:pointer;
+    }
+
+    .selected em{
+    color:#f53;
+    font-style: normal;
+    font-weight: 700;
+    }
+    
+    .hovered{
+      position: absolute;
+      width: 150px;
+      padding: 5px 8px;
+      top: 30px;
+      border: 1px solid #ccc;
+      font: normal 12px/1.5 Arial;
+      color: #666;
+      background-color: rgba(222,222,222,0.3);
+      border-radius: 2px;
+      box-shadow: 1px 1px 10px #ccc;
+    }
+    .hovered p{
+      margin: 2px 0;
+      font: normal  12px/1.5 Arial;
+    }
+    .hovered em{
+      color: #f53;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+  .hide{
+    display: none;
+  }
