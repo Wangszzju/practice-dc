@@ -1,0 +1,4 @@
+tcp4 localhost.socks localhost.62559
+tcp4 localhost.62559 localhost.socks
+tcp4 localhost.socks localhost.62557
+tcp4 localhost.62557 localhost.socks
