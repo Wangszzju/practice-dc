@@ -7,7 +7,7 @@ let fs = require('fs');
 
 function hashAlgorithm(alg){
   let hash;
-  let file = './home-daily.js';
+  let file = './home-imac.css';
   let content = fs.createReadStream(file);
   let data = '';
 

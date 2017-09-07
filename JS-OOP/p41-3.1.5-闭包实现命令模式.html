@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <button id="execute">打开</button>
+    <button id="undo">关闭</button>
+</body>
+<script>
+let TV = {
+    open: function(){
+        console.log('打开电视机');
+    },
+    close: function(){
+        console.log('关上电视机')
+    }
+};
+let OpenTvCommand = function(receiver){
+   this.receiver = receiver;
+}
+// 任意一个OpenTvCommand实例，都具有receiver的方法，通过execute和undo接口去访问就好
+OpenTvCommand.prototype.execute = function(){
+    this.receiver.open();
+}
+OpenTvCommand.prototype.undo = function(){
+    this.receiver.close();
+}
+
+// 设置发起者，在页面上通过cmd对象作为中间人，解耦了发起者和接受者
+let setCommand = function(cmd){
+    document.getElementById('execute').onclick = function(){
+        cmd.execute();
+    };
+    document.getElementById('undo').onclick = function(){
+        cmd.undo();
+    };
+}
+// 假定页面上有3处可以发起cmd.execute()，如果我一个个布置，那么我要改3处handler
+// 但通过命令模式，我只修改TV对象，就可以了
+setCommand(new OpenTvCommand(TV));
+</script>
+</html>

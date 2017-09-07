@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="count">点我</button>
+    <div id="show"></div>
+</body>
+<script>
+    'use strict'
+    let Event = (function(){
+        let list = {};
+
+        function listen(key, func){
+            if(!list[key]){
+                list[key] = [];
+            }
+            list[key].push(func);
+        }
+        function trigger(key, ...args){
+            if(!list[key] || list[key].length === 0){
+                return false;
+            }
+            for(let i = 0; i < list[key].length; i++){
+                let func = list[key][i];
+                // console.log(this); // 指向Event
+                func.apply(this, args);
+                // func(args);
+            }
+        }
+        return {
+            listen:listen,
+            trigger:trigger
+        };
+    })();
+
+    let show = (function(){
+        let div = document.getElementById('show');
+        let obj = {
+            name: 'obj',
+            change: function(...args) {
+                console.log(this); // 指向window
+                div.innerHTML = args;
+            }
+        };
+        // // 普通函数调用方式
+        // Event.listen('add', obj.change);
+        // 作为对象方法调用
+        Event.listen('add', (...args) => {
+            return obj.change(args);  // 建议你这样做，或者采用ES6 Class的写法，在模块化的系统中，很难在调用的时候去规定this
+        });
+        obj.change(100); // 这样做又将输出this为100
+    })();
+
+    let count = (function(){
+        let count = 0;
+        let button = document.getElementById('count');
+        button.onclick = function(){
+            // console.log(this); // 指向button
+            // console.log('add');
+            Event.trigger('add', count++);
+        }
+    })();
+</script>
+
+</html>

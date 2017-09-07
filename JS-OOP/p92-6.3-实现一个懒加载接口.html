@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    let proxyImg = (function(){
+        // ImgNode负责设置src属性
+        let imgNode = (function(){
+            let imgTag = document.createElement('img');
+            document.body.appendChild(imgTag);
+            return {
+                setSrc: function(src){
+                    imgTag.setAttribute('src', src);
+                }
+            }
+        })();
+        // proxyImg负责预先加载一张Loading Gif
+        let proxyImg = (function(){
+            let img = new Image();
+            img.onload = function(){
+                // 代理访问本体，this指向img
+                setTimeout(() => {
+                    // 设置时间纯粹为了测试代码是否生效
+                    imgNode.setSrc(this.src);
+                }, 500);
+            }
+            return {
+                // 负责预先加载图片，为什么也叫setSrc，这样可以实现对调用者透明，调用者无需关心方法名称的变化。
+                setSrc: function(src){
+                    imgNode.setSrc('http://www.wzsky.net/img2015/uploadimg/20151112/1000088.gif');
+                    img.src = src;
+                }
+            }
+        })();
+        return proxyImg;
+        // 如果以后不需要代理了，你只要把let proxyImg这段代码全部删掉，然后返回值改成ImgNode，就可以了，丝毫不干扰啊。
+    })();
+
+
+    // 如果是模块化编程，那么暴露出去的接口一定是proxyImg，这样外部根本无法访问imgNode，形成了一种控制权限
+    proxyImg.setSrc('http://img5.duitang.com/uploads/item/201601/08/20160108133631_cNPGj.jpeg');
+</script>
+</html>

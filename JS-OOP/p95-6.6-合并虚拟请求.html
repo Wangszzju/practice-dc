@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    input{
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="1">Check 1
+    <input type="checkbox" id="2">Check 2
+    <input type="checkbox" id="3">Check 3
+    <input type="checkbox" id="4">Check 4
+    <input type="checkbox" id="5">Check 5
+    <input type="checkbox" id="6">Check 6
+    <input type="checkbox" id="7">Check 7
+    <input type="checkbox" id="8">Check 8
+    <input type="checkbox" id="9">Check 9
+    <input type="checkbox" id="10">Check 10
+</body>
+<script>
+    let syncFile = function(id){
+        console.log(id);
+    };
+    let proxySyncFile = (function(){
+        let cache = [];
+        let timer = null;
+        return function(id){
+            // 每次执行先push上来
+            cache.push(id);
+            if(timer) return;
+            timer = setTimeout(function(){
+                syncFile(cache.join(','));
+                clearTimeout(timer);
+                timer = null;
+                cache.length = 0;
+            }, 3000);
+        }
+    })();
+
+    let checkbox = document.getElementsByTagName('input');
+    for (let i = 0,c;c = checkbox[i++];){
+        c.onclick = function(){
+            if(this.checked === true){
+                proxySyncFile(this.id);
+            }
+        }
+    }
+</script>
+</html>

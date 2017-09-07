@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .log_layer{
+        display: inline-block;
+        width: 400px;
+        height: 300px;
+        border: 1px solid #000;
+    }
+    </style>
+</head>
+<body>
+    <button id="logBtn">点我创建div</button>
+    <button id="closeBtn">点我关闭div</button>
+</body>
+<script>
+    // 目的是在点击时才执行创建，且创建后就不要再重复创建
+    // 管理结果
+    function generateSingleton(func){
+        let result;
+        return function(){
+            if(!result){
+                result = func.apply(this, arguments);
+            }
+            return result;
+        }
+    }
+
+    // 创建div，分离tag
+    function createLoginLayer(tagName){
+        let newTag = document.createElement(tagName.toLowerCase());
+        newTag.innerHTML = '我是新标签';
+        newTag.setAttribute('class', 'log_layer')
+        document.body.appendChild(newTag);
+        return newTag;
+    }
+    let getLoginLayer = generateSingleton(createLoginLayer);
+    document.getElementById('logBtn').onclick = function(){
+        let tag = getLoginLayer('DIV');
+        tag.style.display = 'block';
+    }
+
+    document.getElementById('closeBtn').onclick = function(){
+        let tag = getLoginLayer('DIV');
+        tag.style.display = 'none';
+    }
+
+</script>
+</html>
