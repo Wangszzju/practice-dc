@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        img{
+            height: 100px;
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+<script>
+    const urls = [
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976304557&di=ec5ade9627e62f52bf9c41d2227f779a&imgtype=0&src=http%3A%2F%2Fg.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2Ff9dcd100baa1cd111c8f0a92b312c8fcc3ce2d42.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508571049&di=fc2352032e013f3a1281b1339a87f7d0&imgtype=jpg&er=1&src=http%3A%2F%2Ftupian.enterdesk.com%2F2015%2Fgha%2F12%2F1701%2F06.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1507966265&di=88efb6998ef20aca1299fc79ec995c3d&src=http://img1.dayoo.com/www/201612/21/a034010b-23fa-489e-9c41-65fbf06430fc.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976330663&di=438f90ccb84e151fd10570d48ec4e77f&imgtype=0&src=http%3A%2F%2Fimg2.niutuku.com%2Fdesk%2F1208%2F1652%2Fntk-1652-47189.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976330659&di=463c1cabd4044a71998d6df14e9e4316&imgtype=0&src=http%3A%2F%2Fp1.ifengimg.com%2Fa%2F2017_28%2F48d8c87de01e998_size1323_w1920_h1080.jpg',
+        'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2787616141,1071550063&fm=27&gp=0.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976412956&di=31a5429c17e051601024f2248e776868&imgtype=0&src=http%3A%2F%2Fnews.youth.cn%2Fzc%2F201607%2FW020160711812083095288.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976412947&di=29c507e55b1757c94774e078f1b33233&imgtype=0&src=http%3A%2F%2F09.imgmini.eastday.com%2Fmobile%2F20161123%2F20161123073455_fd97285564042f4bebc2a0de175b958c_4.jpeg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507976412945&di=c7315f4c633552b8a4c992a43ebcdb76&imgtype=0&src=http%3A%2F%2Fimg4.cache.netease.com%2Fphoto%2F0005%2F2010-04-18%2F64IKLAMH0AI90005.jpg'
+    ];
+    const body = document.getElementsByTagName('body')[0];
+    let isLoading = false;
+    // urls.map((url, i) => {
+    //     isLoading = true;
+    //     console.log(`Img ${i + 1} is Loading`);
+    //     let img = document.createElement('img');
+    //     img.src = url;
+    //     img.onload = () => {
+    //         isLoading = false;
+    //         console.log(`Img ${i + 1} is Done`);
+    //         body.appendChild(img)
+    //     }
+    // });
+
+    // 写一个Map版本，同步loading，添加时间取决于下载完成时间
+    const imgsPromises = urls.map((url, i) => {
+        return new Promise(function(resolve, reject){
+            isLoading = true;
+            console.log(`Img ${i + 1} is Loading`);
+            let img = document.createElement('img');
+            img.src = url;
+            resolve(img);  // 这样写可以一次性append
+            // img.onload = () => {
+            //     console.log(`Img ${i + 1} is Downloaded`);
+            //     resolve(img);
+            // }
+        }).then(img => {
+            isLoading = false;
+            console.log(`Img ${i + 1} is Appending`);
+            body.appendChild(img)
+        });
+    })
+
+    // // Reduce版本，同步下载图片，添加时间取决于前面的是否添加完毕，以及自身是否下载完毕
+    // const imgsPromises = urls.map((url, i) => {
+    //     return new Promise(function(resolve, reject){
+    //         isLoading = true;
+    //         console.log(`Img ${i + 1} is Loading`);
+    //         let img = document.createElement('img');
+    //         img.src = url;
+    //         img.onload = () => {
+    //             console.log(`Img ${i + 1} is Downloaded`);
+    //             resolve(img);
+    //         }
+    //     });
+    // })
+
+    // const s = imgsPromises.reduce((sequence, imgsP, i) => {
+    //     return sequence.then(() => {
+    //         return imgsP;
+    //     }).then(img => {
+    //         isLoading = false;
+    //         console.log(`Img ${i + 1} is Appending`);
+    //         body.appendChild(img)
+    //     })
+    // }, Promise.resolve());
+    // console.log(s);
+
+
+</script>
+</html>

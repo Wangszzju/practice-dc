@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    const toolTipFactory = (function(){
+
+        let index = 0;
+        const toolTipPool = [];
+
+        function createDom(tag){
+            const el = document.createElement(tag);
+            document.body.appendChild(el);
+            return el;
+        };
+        return {
+            /* 创建toolTip对象池子*/
+            create(){
+                // 对象池中没有可用对象时，创造一个
+                if(toolTipPool.length === 0){
+                    console.log(`The toolTip ${++index} is created`);
+                    return createDom.apply(this, arguments); // 如果createDom的参数不是数组的话，用apply比较好
+                } else {
+                    return toolTipPool.shift(); // 对象池中的属性都一样，即享元模式所谓的内部属性。
+                }
+            },
+            recover(dom){
+                console.log(`${index--} is recovered`);
+                return toolTipPool.push(dom);
+            }
+        }
+    })();
+
+    const arr = [];
+
+    // 先创建A和B
+    for (let i = 0, str; str = ['A', 'B', 'M', 'N'][i];i++){
+        let toolTip = toolTipFactory.create('div');
+        toolTip.innerHTML = str;  // 组装外部属性
+        arr.push(toolTip);
+    }
+
+    setTimeout(() => {
+        console.log('new Arr Start');
+
+        for(let i = 0, toolTip; toolTip = arr[i];i++){
+            toolTipFactory.recover(toolTip);
+        }
+
+        for (let i = 0, str; str = ['C', 'D', 'E', 'F', 'G', 'H'][i];i++){
+            let toolTip = toolTipFactory.create('div');
+            toolTip.innerHTML = str;  // 组装外部属性
+            arr.push(toolTip);
+        }
+    }, 3000);
+
+
+</script>
+</html>

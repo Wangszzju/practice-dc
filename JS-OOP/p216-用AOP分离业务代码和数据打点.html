@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button tag='login' id='btn'>点击打开登录浮层</button>
+</body>
+<script>
+    Function.prototype.after = function(afterFunc){
+        const self = this;// 这里self对应showLogin
+        return function(){
+            console.log(this);  // showLogin作为btn的onclick去调用的话，this必然指向btn节点
+            const ret = self.apply(this, arguments);
+            afterFunc.apply(this, arguments);
+            return ret;
+        }
+    }
+
+    function showLogin(){
+        console.log('登录模块已经打开');
+    }
+
+    function log(){
+        console.log(`上报标签为：${this.getAttribute('tag')}`); // 这个this写法，要求log必须绑定在DOM上了，如果
+    }
+
+    showLogin = showLogin.after(log);
+
+    document.getElementById('btn').onclick = showLogin;
+</script>
+</html>

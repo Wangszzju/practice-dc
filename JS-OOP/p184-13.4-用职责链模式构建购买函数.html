@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    const order500 = function(type, isPay, stock){
+        if(type === 1 && !!isPay){
+            return console.log('500元定金预购，得到100元优惠券');
+        } else {
+            return 'nextSuccessor';
+        }
+
+    };
+    const order200 = function(type, isPay, stock){
+        if(type === 2 && !!isPay){
+            return console.log('200元定金预购，得到50元优惠券');
+        } else {
+            return 'nextSuccessor';
+        }
+    };
+
+    const orderNormal = function(type, isPay, stock){
+        if(stock > 0){
+            console.log('普通购买');
+        } else {
+            console.log('库存不足');
+        }
+    }
+
+    class ChainItem {
+        constructor(func){
+            if(!func){
+                throw new Error('ChainItem需要传入构建函数')
+            }
+            this.func = func;
+            this.successor = null;
+        }
+        setNextSuccessor(successor){
+            this.successor = successor;
+        }
+        // 我认为还是取名叫做excuteRequest比较好一些。
+        excuteRequest(){
+            const ret = this.func.apply(this, arguments);
+            if(ret === 'nextSuccessor'){
+                return this.next.apply(this, arguments);
+            }
+            return ret;
+        }
+        // 封装一个手动执行下一条方法的方法
+        next(){
+            return this.successor && this.successor.excuteRequest.apply(this.successor, arguments);
+        }
+    }
+
+    const chainOrder500 = new ChainItem(order500);
+    const chainOrder200 = new ChainItem(order200);
+    const chainOrderNormal = new ChainItem(orderNormal);
+
+    chainOrder500.setNextSuccessor(chainOrder200);
+    chainOrder200.setNextSuccessor(chainOrderNormal);
+
+    chainOrder500.excuteRequest(1, true, 500);
+    chainOrder500.excuteRequest(2, true, 500);
+    chainOrder500.excuteRequest(1, false, 500);
+    chainOrder500.excuteRequest(3, true, 500);
+    chainOrder500.excuteRequest(3, true, 0);
+
+</script>
+
+</body>
+</html>

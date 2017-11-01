@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class Plane {
+        constructor(){
+            console.log('The plane is created');
+        }
+        fire(){
+            console.log('发射普通子弹')
+        }
+    }
+
+    class atomDecorator{
+        constructor(plane){
+            if(!plane instanceof Plane){
+                throw new Error('传入的对象不是Plane的示例');
+            }
+            this.plane = plane;
+        }
+        fire(){
+            this.plane.fire();
+            console.log('发射原子弹');
+        }
+    }
+
+    let plane = new Plane();
+    console.log('未升级');
+    plane.fire();
+    plane = new atomDecorator(plane);
+    console.log('升级完毕');
+    plane.fire();
+</script>
+</body>
+</html>

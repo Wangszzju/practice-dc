@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    class LightState {
+        constructor(light, nextLightstate){
+            this.light = light;
+            this.nextLightstate = nextLightstate || '';  // 用文字标记nextState
+        }
+        buttonWasPressed(){
+            console.log('切换到' + this.nextLightstate);
+            this.light.setState(this.light[this.nextLightstate]);
+        }
+    }
+    class offLightState extends LightState{
+        constructor(light, nextLightstate){
+            super(light, nextLightstate);
+        }
+    }
+
+    class weakLightState extends LightState{
+        constructor(light, nextLightstate){
+            super(light, nextLightstate);
+        }
+    }
+
+    class strongLightState extends LightState{
+        constructor(light, nextLightstate){
+            super(light, nextLightstate);
+        }
+    }
+
+    class Light{
+        constructor(){
+            this.offLightState = new offLightState(this, 'weakLightState');
+            this.weakLightState = new weakLightState(this, 'strongLightState');
+            this.strongLightState = new strongLightState(this, 'offLightState');
+            this.currentState = null;
+        }
+        setState(newState){
+            // newState必须具有buttonWasPressed和light属性，且light属性是Light类的实例
+            this.currentState = newState;
+        }
+        init(){
+            // 设置初始化状态
+            this.setState(this.offLightState);
+            // 设置控制开关
+            const self = this;
+            let btn = document.createElement('button');
+            btn.innerHTML = '开关'
+            btn.onclick = function(){
+                self.currentState.buttonWasPressed();
+            }
+            document.body.appendChild(btn)
+        }
+    }
+
+    const light = new Light();
+    light.init();
+</script>
+</body>
+</html>
