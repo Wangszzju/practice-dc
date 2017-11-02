@@ -47,48 +47,48 @@
     //     }
     // });
 
-    // 写一个Map版本，同步loading，添加时间取决于下载完成时间
-    const imgsPromises = urls.map((url, i) => {
-        return new Promise(function(resolve, reject){
-            isLoading = true;
-            console.log(`Img ${i + 1} is Loading`);
-            let img = document.createElement('img');
-            img.src = url;
-            resolve(img);  // 这样写可以一次性append
-            // img.onload = () => {
-            //     console.log(`Img ${i + 1} is Downloaded`);
-            //     resolve(img);
-            // }
-        }).then(img => {
-            isLoading = false;
-            console.log(`Img ${i + 1} is Appending`);
-            body.appendChild(img)
-        });
-    })
-
-    // // Reduce版本，同步下载图片，添加时间取决于前面的是否添加完毕，以及自身是否下载完毕
+    // // 写一个Map版本，同步loading，添加时间取决于下载完成时间
     // const imgsPromises = urls.map((url, i) => {
     //     return new Promise(function(resolve, reject){
     //         isLoading = true;
     //         console.log(`Img ${i + 1} is Loading`);
     //         let img = document.createElement('img');
     //         img.src = url;
-    //         img.onload = () => {
-    //             console.log(`Img ${i + 1} is Downloaded`);
-    //             resolve(img);
-    //         }
-    //     });
-    // })
-
-    // const s = imgsPromises.reduce((sequence, imgsP, i) => {
-    //     return sequence.then(() => {
-    //         return imgsP;
+    //         resolve(img);  // 这样写可以一次性append
+    //         // img.onload = () => {
+    //         //     console.log(`Img ${i + 1} is Downloaded`);
+    //         //     resolve(img);
+    //         // }
     //     }).then(img => {
     //         isLoading = false;
     //         console.log(`Img ${i + 1} is Appending`);
     //         body.appendChild(img)
-    //     })
-    // }, Promise.resolve());
+    //     });
+    // })
+
+    // Reduce版本，同步下载图片，添加时间取决于前面的是否添加完毕，以及自身是否下载完毕
+    const imgsPromises = urls.map((url, i) => {
+        return new Promise(function(resolve, reject){
+            isLoading = true;
+            console.log(`Img ${i + 1} is Loading`);
+            let img = document.createElement('img');
+            img.src = url;
+            img.onload = () => {
+                console.log(`Img ${i + 1} is Downloaded`);
+                resolve(img);
+            }
+        });
+    })
+
+    const s = imgsPromises.reduce((sequence, imgsP, i) => {
+        return sequence.then(() => {
+            return imgsP;
+        }).then(img => {
+            isLoading = false;
+            console.log(`Img ${i + 1} is Appending`);
+            body.appendChild(img)
+        })
+    }, Promise.resolve());
     // console.log(s);
 
 
