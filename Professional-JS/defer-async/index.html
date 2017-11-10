@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        document.onreadystatechange = function(){
+            console.log(document.readyState);
+        }
+        document.addEventListener("DOMContentLoaded", function(event) {
+            console.log("DOM fully loaded and parsed");
+        });
+        window.onload = () => {
+            console.log('Window is loaded！');
+        }
+    </script>
+</head>
+<body>
+    <script src="./async.js" async="async"></script>
+    <!-- <script src="./async2.js" async="async"></script> -->
+    <script src="./defer.js" async="defer"></script>
+</body>
+</html>

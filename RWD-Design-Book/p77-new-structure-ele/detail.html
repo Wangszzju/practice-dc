@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>detail</title>
+    <style>
+        summary::-webkit-details-marker{
+            /* color用于配置三角形填充色 */
+            color: #ebebeb;
+            /* background-color用于配置背景，一般是个正方形 */
+            background-color: #0af;
+            display: none;
+        }
+        summary::before{
+            content: "\2605"; /* 新图标 */
+            color: #0af;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <details>
+            <summary>这是简介</summary>
+            <p>哈哈哈哈哈哈</p>
+            <p>哈哈哈哈哈哈</p>
+            <p>哈哈哈哈哈哈</p>
+        </details>
+        <details>
+            <summary>这是简介2</summary>
+            <p>哈哈哈哈哈哈2</p>
+            <p>哈哈哈哈哈哈2</p>
+            <p>哈哈哈哈哈哈2</p>
+        </details>
+    </div>
+</body>
+</html>
