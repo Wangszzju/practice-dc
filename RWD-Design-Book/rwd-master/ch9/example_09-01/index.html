@@ -6,7 +6,7 @@
 	<meta name="description" content="An example from the book, 'Responsive Web Design with HTML5 and CSS3' by Ben Frain">
 	<meta name="viewport" content="width=device-width">
 	<meta name="theme-color" content="#ff9900">
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 	<form id="redemption" method="post">
@@ -28,7 +28,7 @@
 				<label for="awardWon">Award Won</label>
 				<input id="awardWon" name="awardWon" type="text" list="awards">
 				<datalist id="awards">
-					<select>					
+					<select>
 						<option value="Best Picture"></option>
 						<option value="Best Director"></option>
 						<option value="Best Adapted Screenplay"></option>
@@ -43,7 +43,7 @@
 			<div>
 				<label for="howYouRateIt">How you rate it (1 is woeful, 10 is awesomesauce)</label>
 				<input id="howYouRateIt" name="howYouRateIt" type="range" min="1" max="10" value="5" onchange="showValue(this.value)"><span id="range">5</span>
-				
+
 			</div>
 			<script>
 			function showValue(newValue)
@@ -51,17 +51,17 @@
 				document.getElementById("range").innerHTML=newValue;
 			}
 			</script>
-			
+
 		</fieldset>
-		
+
 		<fieldset>
 			<legend>What should have won? (part 2 of 3)</legend>
-			
+
 			<div>
 				<label for="filmGood">The film that should have won?</label>
 				<input id="filmGood" name="filmGood" type="text" placeholder="e.g. Cable Guy" required>
 			</div>
-			
+
 			<div>
 				<label for="whyItShould">Tell us why it should have won?</label>
 				<textarea id="whyItShould" name="whyItShould" placeholder="Hello? CAABBLLLLE GUUUY!!!!!" required></textarea>
@@ -70,12 +70,12 @@
 				<label for="howYouRateThis">How you rate it (1 is woeful, 10 is awesomesauce)</label>
 				<input id="howYouRateThis" name="howYouRateThis" type="number" min="1" max="10" value="5" required>
 			</div>
-			
+
 		</fieldset>
-		
+
 		<fieldset>
 			<legend>About you? (part 3 of 3)</legend>
-			
+
 			<div>
 				<label for="name">Your Name</label>
 				<input id="name" name="name" pattern="([a-zA-Z]{3,30}\s*)+[a-zA-Z]{3,30}" placeholder="Dwight Schultz" required>
@@ -100,7 +100,7 @@
 				<label for="web">Your Web address</label>
 				<input id="web" name="web" type="url" placeholder="www.mysite.com">
 			</div>
-			
+
 		</fieldset>
 		<input type="submit" id="submit" value="Submit Redemption">
 	</form>

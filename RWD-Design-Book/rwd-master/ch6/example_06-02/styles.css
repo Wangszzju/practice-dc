@@ -1,7 +1,7 @@
 .no-spread,
 .spread {
-	height: 20vmin;
-	width: 20vmin;
+	height: 100px;
+	width: 100px;
 	border: 1px solid #111;
 	margin: 1em;
 	display: inline-flex;
@@ -11,9 +11,9 @@
 }
 
 .no-spread {
-  box-shadow: 0 10px 10px;
+	box-shadow: 200px 200px 0 0px;
 }
 
 .spread {
-  box-shadow: 0 10px 10px -10px;
+  box-shadow: 200px 200px 40px 0px;
 }

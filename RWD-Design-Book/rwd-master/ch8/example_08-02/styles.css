@@ -36,7 +36,7 @@ a {
 }
 
 .skew:hover {
-	transform: skew(40deg, 12deg);
+	transform: skew(0, 45deg);
 }
 
 .matrix:hover {
