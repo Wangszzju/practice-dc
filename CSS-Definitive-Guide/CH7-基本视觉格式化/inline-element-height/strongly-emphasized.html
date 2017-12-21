@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .vertical-align-ex{
+      /* 分别设置为bottom和text-bottom就会发现不同了 */
+      /* 设置为bottom，因为strong元素也是baseline对齐，inline-box高度也只有24px，所以line-box中最底部的inline-box的最底端，都是一样的 */
+      /* 设置为text-bottom就会开始和更底端对齐了，不过这里有点迷，还没赶上strong 元素的底部 */
+      vertical-align: bottom;
+    }
+  </style>
+</head>
+<body>
+  <p style="font-size: 24px; line-height: 24px">
+    <!-- This is Text, -->
+    <!-- <em>some of which is emphasized</em>, plus other text -->
+    <!-- <br> -->
+    Which is <strong style="font-size: 48px">Strongly emphasized</strong> and which
+    <span class="vertical-align-ex">tall</span>
+    and is
+    <!-- <br>
+    larger than the surrounding text. -->
+  </p>
+</body>
+</html>

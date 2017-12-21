@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  .box{
+    width: 100%;
+    display: flex;
+    font-size: 20px;
+  }
+  .pre{
+    flex-shrink: 0;
+  }
+  .text{
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #ccc;
+  }
+  </style>
+</head>
+<body>
+  <div id="box" class="box">
+    <span class="pre">填充文字</span>
+    <span class="text" id="text">文字高度应该是20文字高度应该是20</span>
+  </div>
+</body>
+<script>
+  const text = document.getElementById('text');
+  const box = document.getElementById('box');
+  console.log(`box-height:${box.offsetHeight}`);  // 40
+  console.log(`text-height:${text.offsetHeight}`);  // 28
+</script>
+</html>

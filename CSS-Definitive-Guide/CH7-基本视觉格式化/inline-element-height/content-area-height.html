@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  body { font-family: Simsun; }
+  .box{
+    height: 30px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+  }
+  .text{
+    font-size: 20px;
+    /* 对于display: inline的不可替换元素而言，height是不适用的，其高度按照content-area高度自动计算 */
+    line-height: 20px;
+  }
+  .pure{
+    font-size: 20px;
+    line-height: 1;
+    border: 1px solid #ebebeb;
+  }
+  </style>
+</head>
+<body>
+  <div id="box" class="box">
+    <span>填充文字</span>
+    <span class="text" id="text">文字高度应该是20</span>
+  </div>
+  <div class="pure">
+      文字高度应该是20
+  </div>
+</body>
+<script>
+  const text = document.getElementById('text');
+  const box = document.getElementById('box');
+  console.log(`box-height:${box.offsetHeight}`);  // 40
+  console.log(`text-height:${text.offsetHeight}`);  // 28
+</script>
+</html>
